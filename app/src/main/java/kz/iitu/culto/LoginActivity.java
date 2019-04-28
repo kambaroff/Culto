@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 validateAndSignIn(mEmailLogin.getText().toString(),
                         mPasswordLogin.getText().toString());
-                            startActivity(new Intent(this, SideMenuActivity.class));
+
                 break;
 
         }
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
+                    startActivity(new Intent(LoginActivity.this, SideMenuActivity.class));
                     Toast.makeText(LoginActivity.this, R.string.success_login_message,
                             Toast.LENGTH_SHORT).show();
 

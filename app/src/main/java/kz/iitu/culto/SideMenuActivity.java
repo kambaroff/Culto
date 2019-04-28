@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import kz.iitu.culto.MenuFragments.AboutUsFragment;
+import kz.iitu.culto.MenuFragments.ProfileFragment;
+
 
 public class SideMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,8 +39,8 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new AboutUsFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_about_us);}
+                    new ProfileFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_profile);}
     }
 
 
@@ -59,6 +62,10 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_about_us:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AboutUsFragment()).commit();
+                break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ProfileFragment()).commit();
                 break;
         }
 

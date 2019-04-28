@@ -1,4 +1,4 @@
-package kz.iitu.culto;
+package kz.iitu.culto.MenuFragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import kz.iitu.culto.R;
 
 public class AboutUsFragment extends Fragment {
 

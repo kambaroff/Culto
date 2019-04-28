@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin">20dp</dimen>
+    <dimen name="buttonWidth">50dp</dimen>
+    <dimen name="layout_width">250dp</dimen>
+    <dimen name="title_size">19sp</dimen>
+    <dimen name="content_size">17sp</dimen>
+    <dimen name="priority_size">15sp</dimen>
+    <dimen name="padding">16dp</dimen>
+</resources>

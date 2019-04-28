@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1098449461066",
+    "firebase_url": "https://culto-5d4e4.firebaseio.com",
+    "project_id": "culto-5d4e4",
+    "storage_bucket": "culto-5d4e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098449461066:android:56e5de35f0fb150e",
+        "android_client_info": {
+          "package_name": "kz.iitu.culto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098449461066-3k0op5164lfmeu0jn9je91ajaljdkeq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9pUZOo5DhuvxGVVAfoaKulWV2fjsPWIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098449461066-3k0op5164lfmeu0jn9je91ajaljdkeq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

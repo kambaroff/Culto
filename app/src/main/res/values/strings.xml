@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Culto</string>
+    <string name="email_hint">Enter your email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="back_button">Back</string>
+    <string name="name_hint">Your name</string>
+    <string name="age_hint">Your age</string>
+    <string name="name_label">Username</string>
+    <string name="age_label">Age</string>
+    <string name="user_info">Info</string>
+    <string name="logout_button">Logout</string>
+    <string name="empty_valid_error">Input is empty</string>
+    <string name="success_login_message">Logged in!</string>
+    <string name="surname_registration">Your surname</string>
+    <string name="succes_reg_message">Signed up succesfully</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>

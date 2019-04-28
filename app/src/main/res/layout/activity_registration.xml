@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/email_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email_hint"
+        />
+
+    <EditText
+        android:id="@+id/password_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/password_hint"/>
+
+    <EditText
+        android:id="@+id/name_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_hint"/>
+
+    <EditText
+        android:id="@+id/surname_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/surname_registration"/>
+
+    <LinearLayout
+        android:layout_width="@dimen/layout_width"
+        android:layout_height="wrap_content">
+
+
+
+        <Button
+            android:id="@+id/sign_up_button_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:gravity="center_horizontal"
+            android:text="@string/sign_up_button" />
+
+
+        <Button
+            android:id="@+id/back_button_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:gravity="center_horizontal"
+            android:text="@string/back_button"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

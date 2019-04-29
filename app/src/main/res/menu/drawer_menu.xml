@@ -18,9 +18,9 @@
             android:title="Chat"></item>
 
         <item
-            android:id="@+id/nav_tests"
+            android:id="@+id/nav_quiz"
             android:icon="@drawable/ic_settings"
-            android:title="Tests"></item>
+            android:title="Quiz"></item>
         <item
             android:id="@+id/nav_about_us"
             android:icon="@drawable/ic_about_us"

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import kz.iitu.culto.MenuFragments.AboutUsFragment;
 import kz.iitu.culto.MenuFragments.ProfileFragment;
+import kz.iitu.culto.MenuFragments.QuizFragment;
 
 
 public class SideMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,6 +67,10 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
+                break;
+            case R.id.nav_tests:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new QuizFragment()).commit();
                 break;
         }
 

@@ -1,5 +1,6 @@
 package kz.iitu.culto;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mUser;
 
-
+    private ProgressDialog mLoadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mSignUpButton = findViewById(R.id.sign_up_button);
         mLoginButton = findViewById(R.id.login_button);
 
+        mLoadingBar = new ProgressDialog(this);
+
         mLoginButton.setOnClickListener(this);
         mSignUpButton.setOnClickListener(this);
     }
@@ -58,9 +61,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_up_button:
-                startActivity(new Intent(this, RegistrationActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
                 break;
             case R.id.login_button:
+                mLoadingBar.setTitle("Logging in...");
+                mLoadingBar.setMessage("Please wait until you logged in");
+                mLoadingBar.show();
+                mLoadingBar.setCanceledOnTouchOutside(true);
                 validateAndSignIn(mEmailLogin.getText().toString(),
                         mPasswordLogin.getText().toString());
 
@@ -76,13 +83,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    mLoadingBar.dismiss();
                     startActivity(new Intent(LoginActivity.this, SideMenuActivity.class));
                     Toast.makeText(LoginActivity.this, R.string.success_login_message,
                             Toast.LENGTH_SHORT).show();
 
                     return;
                 }
-
+              mLoadingBar.dismiss();
               Toast.makeText(LoginActivity.this,task.getException().getMessage(),
                        Toast.LENGTH_SHORT).show();
             }

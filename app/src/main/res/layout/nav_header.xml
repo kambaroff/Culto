@@ -16,20 +16,13 @@
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
-        android:id="@+id/name_view"
+        android:id="@+id/fullname_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        tools:text="name"
+        tools:text="fullname"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:id="@+id/surname_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        tools:text="surname"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/email_view"

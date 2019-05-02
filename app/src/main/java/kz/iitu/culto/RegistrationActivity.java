@@ -1,9 +1,11 @@
 package kz.iitu.culto;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.internal.InternalTokenProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,21 +29,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private EditText mEmailRegistration;
     private EditText mPasswordRegistration;
-
-    private TextView mEmailView;
-    private TextView mNameView;
-    private TextView mSurnameView;
-
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
-
-    private  EditText mNameRegistration;
-    private EditText mSurnameRegistration;
+    private EditText mPasswordConfirm;
 
     private Button mSignUpRegistration;
     private Button mBackRegistration;
 
     private FirebaseAuth mFirebaseAuth;
 
+    private ProgressDialog mLoadingBar;
 
 
     @Override
@@ -57,23 +53,20 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         mEmailRegistration = findViewById(R.id.email_registration);
         mPasswordRegistration = findViewById(R.id.password_registration);
-        mNameRegistration = findViewById(R.id.name_registration);
-        mSurnameRegistration = findViewById(R.id.surname_registration);
-
-        mNameView = findViewById(R.id.name_view);
-        mSurnameView = findViewById(R.id.surname_view);
-        mEmailView = findViewById(R.id.email_view);
+        mPasswordConfirm = findViewById(R.id.confirm_password);
 
         mSignUpRegistration = findViewById(R.id.sign_up_button_reg);
         mBackRegistration = findViewById(R.id.back_button_reg);
 
-        setContentView(R.layout.nav_header);
+        mLoadingBar = new ProgressDialog(this);
 
 
 
         mSignUpRegistration.setOnClickListener(this);
         mBackRegistration.setOnClickListener(this);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -83,68 +76,67 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.sign_up_button_reg:
-                validateAndSignUp(mEmailRegistration.getText().toString(),
-                        mPasswordRegistration.getText().toString());
+                CreateAccount();
                 break;
         }
 
-
     }
 
-    private void validateAndSignUp(final String email, String password) {
-        if(isValid(email,password)){
-            mFirebaseAuth.createUserWithEmailAndPassword(email,password).
-                    addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void CreateAccount() {
+        String email = mEmailRegistration.getText().toString();
+        String password = mPasswordRegistration.getText().toString();
+        String confirmPassword = mPasswordConfirm.getText().toString();
+
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Please write your email..", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(password))
+        {
+            Toast.makeText(this,"Please write your password ..", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(confirmPassword))
+        {
+            Toast.makeText(this,"Please confirm your password ..", Toast.LENGTH_SHORT).show();
+        }
+        else if (!password.equals(confirmPassword))
+        {
+            Toast.makeText(this,"Password is not confirmed ..", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+            mLoadingBar.setTitle("Creating New Account");
+            mLoadingBar.setMessage("Please wait, while we are creating your new account");
+            mLoadingBar.show();
+            mLoadingBar.setCanceledOnTouchOutside(true);
+
+
+            mFirebaseAuth.createUserWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                finish();
-                                startActivity(new Intent(RegistrationActivity.this, SideMenuActivity.class));
+                            if(task.isSuccessful())
+                            {
+                                SendUserToSetupActivity();
 
-                                sendUserData();
-
-
-                                Toast.makeText(RegistrationActivity.this, R.string.succes_reg_message,
+                                Toast.makeText(RegistrationActivity.this, "Authenticated succesfully!",
                                         Toast.LENGTH_SHORT).show();
-
-                                return;
+                                mLoadingBar.dismiss();
                             }
-
-                            Toast.makeText(RegistrationActivity.this, task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                            else
+                            {
+                                Toast.makeText(RegistrationActivity.this, task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                                mLoadingBar.dismiss();
+                            }
                         }
                     });
         }
     }
 
-    private boolean isValid(String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, R.string.empty_valid_error, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
+    private void SendUserToSetupActivity() {
+        Intent setupIntent = new Intent(RegistrationActivity.this, SetupActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
+        finish();
     }
-
-    private void sendUserData(){
-
-        String user_id = mFirebaseAuth.getCurrentUser().getUid();
-        DatabaseReference current_user_db = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("Users")
-                .child(user_id);
-
-        String name = mNameRegistration.getText().toString();
-        String surname = mSurnameRegistration.getText().toString();
-        String email = mEmailRegistration.getText().toString();
-
-        Map newPost = new HashMap();
-        newPost.put("email",email);
-        newPost.put("name",name);
-        newPost.put("surname",surname);
-
-        current_user_db.setValue(newPost);
-
-    }
-
 }

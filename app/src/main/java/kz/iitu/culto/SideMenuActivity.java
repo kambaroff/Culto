@@ -37,8 +37,7 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
 
     private ImageView profilePhoto;
 
-    private TextView firstName;
-    private TextView lastName;
+    private TextView fullName;
     private TextView userEmail;
 
     @Override
@@ -63,8 +62,7 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
         profilePhoto = headerView.findViewById(R.id.profile_round_picture);
-        firstName = headerView.findViewById(R.id.name_view);
-        lastName = headerView.findViewById(R.id.surname_view);
+        fullName = headerView.findViewById(R.id.fullname_view);
         userEmail = headerView.findViewById(R.id.email_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -77,12 +75,10 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-                    String myFirstName = dataSnapshot.child("name").getValue().toString();
-                    String myLastName = dataSnapshot.child("surname").getValue().toString();
+                    String myFirstName = dataSnapshot.child("fullname").getValue().toString();
                     String myEmail = dataSnapshot.child("email").getValue().toString();
 
-                    firstName.setText(myFirstName);
-                    lastName.setText(myLastName);
+                    fullName.setText(myFirstName);
                     userEmail.setText(myEmail);
                 }
             }

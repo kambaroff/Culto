@@ -1,17 +1,18 @@
 package kz.iitu.culto;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kz.iitu.culto.MenuFragments.AboutUsFragment;
 import kz.iitu.culto.MenuFragments.ProfileFragment;
 import kz.iitu.culto.MenuFragments.QuizFragment;
@@ -35,22 +38,22 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
 
     private String currentUserId;
 
-    private ImageView profilePhoto;
+    private CircleImageView mProfileNavImage;
 
     private TextView fullName;
-    private TextView userEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_side_menu);
 
+
+
+
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
-
         profileUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-
-
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -61,9 +64,9 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
         View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
-        profilePhoto = headerView.findViewById(R.id.profile_round_picture);
+        mProfileNavImage = headerView.findViewById(R.id.profile_round_picture);
         fullName = headerView.findViewById(R.id.fullname_view);
-        userEmail = headerView.findViewById(R.id.email_view);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -76,10 +79,11 @@ public class SideMenuActivity extends AppCompatActivity implements NavigationVie
                 if(dataSnapshot.exists())
                 {
                     String myFirstName = dataSnapshot.child("fullname").getValue().toString();
-                    String myEmail = dataSnapshot.child("email").getValue().toString();
+                    String myImage = dataSnapshot.child("profileimage").getValue().toString();
 
                     fullName.setText(myFirstName);
-                    userEmail.setText(myEmail);
+                    Picasso.with(SideMenuActivity.this).load(myImage).placeholder(R.drawable.profile).into(mProfileNavImage);
+
                 }
             }
 

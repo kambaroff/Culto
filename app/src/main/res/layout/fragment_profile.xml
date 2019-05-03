@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_light"
     android:orientation="vertical">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/profile_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:src="@tools:sample/avatars"
+        android:layout_height="260dp"
+        android:src="@drawable/profile"
         android:scaleType="centerCrop"/>
 
     <TextView
+        android:id="@+id/profile_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="User Name"
-        android:text=""
         android:textSize="30sp" />
 
     <LinearLayout
@@ -63,6 +64,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/account_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
